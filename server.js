@@ -7,10 +7,10 @@ server.use(express.json());
 const usersRouter = require('./users/users-router.js');
 const postsRouter = require('./posts/posts-router.js');
 
-// Custom Middleware
+// Custom Middleware make names UPPERCASE
 function upperCASE(req, res, next) {
-    if (req.method === ("PUT" || "POST")) {
-        req.body.name.toUpperCase();
+    if (req.method === 'PUT' || req.method === 'POST' ) {
+        req.body.name = req.body.name.toUpperCase();
         next();
     } else {
         next();
@@ -18,6 +18,7 @@ function upperCASE(req, res, next) {
 }
 
 // Routing
+server.use(upperCASE);
 server.use('/api/users', usersRouter);
 server.use('/api/posts', postsRouter);
 
